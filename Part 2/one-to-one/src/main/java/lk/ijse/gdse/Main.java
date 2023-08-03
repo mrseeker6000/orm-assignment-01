@@ -98,10 +98,18 @@ public class Main {
         public static void updateBook(){
             Scanner input = new Scanner(System.in);
             Book book = new Book();
+            Author author = new Author();
 
-            System.out.println("-------------------");
-            System.out.println("Update Books   !!!!");
-            System.out.println("-------------------");
+            System.out.println("---------------------------");
+            System.out.println("Update Book & Author   !!!!");
+            System.out.println("---------------------------");
+
+            System.out.print("Input Author Id : ");
+            String aid = input.next();
+
+            System.out.print("Input Author Name : ");
+            String name =input.next();
+
 
             System.out.print("Input Book Id : ");
             String id=input.next();
@@ -109,25 +117,26 @@ public class Main {
             System.out.print("Input Book Title : ");
             String title =input.next();
 
-            System.out.print("Input Author Name : ");
-            String author =input.next();
-
-
             book.setId(id);
             book.setTitle(title);
+
+            author.setId(aid);
+            author.setName(name);
+            author.setBook(book);
 
             Session session = FactoryConfiguration.getInstance().getSession();
             Transaction transaction = session.beginTransaction();
 
             session.update(book);
+            session.update(author);
 
             transaction.commit();
             session.close();
 
 
-            System.out.println("Book Updated !!!");
+            System.out.println("Book & Author Updated !!!");
 
-            System.out.print("Do you need to update Another Book ? (Y/n) : ");
+            System.out.print("Do you need to update Another Book or Author ? (Y/n) : ");
             String x = input.next();
 
             if (x.equals("Y")||x.equals("y")){
@@ -142,28 +151,34 @@ public class Main {
         public static void removeBook(){
             Scanner input = new Scanner(System.in);
             Book book = new Book();
+            Author author = new Author();
 
-            System.out.println("-------------------");
-            System.out.println("Remove Books   !!!!");
-            System.out.println("-------------------");
+            System.out.println("---------------------------");
+            System.out.println("Remove Book & Author   !!!!");
+            System.out.println("---------------------------");
+
+            System.out.print("Input Author Id : ");
+            String aid=input.next();
 
             System.out.print("Input Book Id : ");
             String id=input.next();
 
             book.setId(id);
+            author.setId(aid);
 
             Session session = FactoryConfiguration.getInstance().getSession();
             Transaction transaction = session.beginTransaction();
 
+            session.delete(author);
             session.delete(book);
 
             transaction.commit();
             session.close();
 
 
-            System.out.println("Book Removed !!!");
+            System.out.println("Book & Author Removed !!!");
 
-            System.out.print("Do you need to remove Another Book ? (Y/n) : ");
+            System.out.print("Do you need to remove Another Book & Author ? (Y/n) : ");
             String x = input.next();
 
             if (x.equals("Y")||x.equals("y")){
